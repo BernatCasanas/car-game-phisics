@@ -18,6 +18,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+	void createRectangle(vec3 pos, vec3 size);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
@@ -29,6 +30,8 @@ public:
 	PhysBody3D* pb_snake2[MAX_SNAKE];
 	Sphere s_snake2[MAX_SNAKE];
 	*/
+
+	p2List<Cube*> cube_list;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
