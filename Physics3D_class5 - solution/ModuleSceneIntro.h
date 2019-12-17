@@ -18,7 +18,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-	void createRectangle(vec3 pos, vec3 size);
+	void createRectangle(vec3 pos, vec3 size, char* color);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
