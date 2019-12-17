@@ -27,19 +27,19 @@ bool ModuleSceneIntro::Start()
 	//Horizontal Limits
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-	float z = 0, x = -7;
+	float z = 0, x = -11;
 	for (z; z <= 500; z += 1.5) {
 		if (par % 2 == 0) {
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ 8, 0, z }, { 1, 2, 1 }, color);
-		createRectangle({ -8, 0, z }, { 1, 2, 1 }, color);
+		createRectangle({ 12, 0, z }, { 1, 2, 1 }, color);
+		createRectangle({ -12, 0, z }, { 1, 2, 1 }, color);
 		par++;
 	}
 
 	//Top Bottom Limits
-	for (x; x < 8; x += 1.5) {
+	for (x; x < 12; x += 1.5) {
 		if (par % 2 == 0) {
 			color = "Red";
 		}
@@ -48,7 +48,7 @@ bool ModuleSceneIntro::Start()
 		par++;
 	}
 	x = -7;
-	for (x; x < 8; x += 1.5) {
+	for (x; x < 12; x += 1.5) {
 		if (par % 2 == 0) {
 			color = "Red";
 		}
@@ -58,8 +58,8 @@ bool ModuleSceneIntro::Start()
 	}
 
 	//Obstacles Randomly setted
-	for (float i = 6; i <= 500; i += 9) {
-		r = rand() % 14 - 7;
+	for (float i = 18; i <= 500; i += 10.5) {
+		r = rand() % 24 - 12;
 		createRectangle({ r, 0, i }, { 1, 2, 1 }, color);
 	}
 
