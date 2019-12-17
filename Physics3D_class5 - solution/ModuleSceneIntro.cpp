@@ -20,11 +20,14 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-	for (float z = 0; z <= 200; z += 1.5) {
+	float z = 0, x = -7;
+	for (z; z <= 500; z += 1.5) {
 		createRectangle({ 8, 0, z }, { 1, 2, 1 });
 		createRectangle({ -8, 0, z }, { 1, 2, 1 });
 	}
-
+	for (x; x < 8; x += 1.5) createRectangle({ x, 0, 0 }, { 1, 2, 1 });
+	x = -7;
+	for (x; x < 8; x += 1.5) createRectangle({ x, 0, z }, { 1, 2, 1 });
 
 	return ret;
 }
