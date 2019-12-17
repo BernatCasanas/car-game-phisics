@@ -87,6 +87,7 @@ void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color)
 	object->SetPos(pos.x, pos.y, pos.z);
 	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);
+	App->physics->AddBody(*object, 0.0f);
 
 }
 
