@@ -21,9 +21,8 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	createRectangle((10, 3, 0), (1, 1, 1));
-	createRectangle((0, 6, 4), (1, 1, 1));
-	createRectangle((0, 7, -4), (1, 1, 1));
+	createRectangle({ 0, 0, 1 }, { 1, 1, 1.6 });
+
 
 	return ret;
 }
