@@ -21,9 +21,9 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	createRectangle((0, 3, 0), (1, 1, 1));
-	createRectangle((0, 3, 4), (1, 1, 1));
-	createRectangle((0, 3, -4), (1, 1, 1));
+	createRectangle((10, 3, 0), (1, 1, 1));
+	createRectangle((0, 6, 4), (1, 1, 1));
+	createRectangle((0, 7, -4), (1, 1, 1));
 
 	return ret;
 }
@@ -41,7 +41,7 @@ void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size)
 	Cube* object = new Cube(size.x, size.y, size.z);
 
 	object->SetPos(pos.x, pos.y, pos.z);
-	object->SetRotation(90, (0, 1, 0));
+	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);
 
 }
@@ -55,7 +55,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	
 	p2List_item<Cube*>* cube = cube_list.getFirst();
 
-	cube->data->Render();
+	for (cube; cube != nullptr;cube = cube->next) {
+		cube->data->Render();
+	}
 
 
 	return UPDATE_CONTINUE;
