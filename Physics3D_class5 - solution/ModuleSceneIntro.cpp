@@ -20,8 +20,10 @@ bool ModuleSceneIntro::Start()
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
-
-	createRectangle({ 0, 0, 1 }, { 1, 1, 1.6 });
+	for (float z = 0; z <= 200; z += 1.5) {
+		createRectangle({ 8, 0, z }, { 1, 2, 1 });
+		createRectangle({ -8, 0, z }, { 1, 2, 1 });
+	}
 
 
 	return ret;
@@ -38,7 +40,9 @@ bool ModuleSceneIntro::CleanUp()
 void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size)
 {
 	Cube* object = new Cube(size.x, size.y, size.z);
-
+	if (pos.y == 0) {
+		pos.y += size.y * 0.5;
+	}
 	object->SetPos(pos.x, pos.y, pos.z);
 	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);
