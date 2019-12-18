@@ -39,7 +39,7 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-	// Implement a debug camera with keys and mouse
+	/*// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
 	vec3 newPos(0,0,0);
@@ -96,7 +96,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 		Position = Reference + Z * length(Position);
 	}
-	else {
+	/*else if (App->input->GetKey(SDL_SCANCODE_1==KEY_REPEAT)){
 		mat4x4 matrix;
 		App->player->vehicle->GetTransform(&matrix);
 
@@ -106,15 +106,118 @@ update_status ModuleCamera3D::Update(float dt)
 		Y = vec3(matrix[4], matrix[5], matrix[6]);
 		Z = vec3(matrix[8], matrix[9], matrix[10]);
 
-		vec3 VehicleLocation = { matrix[12],matrix[13],matrix[14]+8 };
+		vec3 VehicleLocation = { matrix[12],matrix[13]+2,matrix[14]+5 };
 		Look(VehicleLocation-Z, VehicleLocation, true);
 	}
+	else {//if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT){
+		mat4x4 matrix;
+		App->player->vehicle->GetTransform(&matrix);
 
+		vec3 VehicleLocation = { matrix[12],matrix[13],matrix[14] };
+		VehicleLocation.y += 3;
+		VehicleLocation.z += 4;
+		//LOG("VEHICLE LOCATION: %d, %d, %d")
+		Reference=Position = VehicleLocation;
+
+		
+		//LookAt({ VehicleLocation.x+10,VehicleLocation.y+10,VehicleLocation.z });
+	}
+
+	// Recalculate matrix -------------
+	CalculateViewMatrix();*/
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleCamera3D::PostUpdate(float dt)
+{
+	// Implement a debug camera with keys and mouse
+	// Now we can make this movememnt frame rate independant!
+
+	vec3 newPos(0, 0, 0);
+	float speed = 3.0f * dt;
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+		speed = 8.0f * dt;
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed * 30;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed * 30;
+
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed * 30;
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed * 30;
+
+	Position += newPos;
+	Reference += newPos;
+
+	// Mouse motion ----------------
+
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+
+		float Sensitivity = 0.25f;
+
+		Position -= Reference;
+
+		if (dx != 0)
+		{
+			float DeltaX = (float)dx * Sensitivity;
+
+			X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+			Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+		}
+
+		if (dy != 0)
+		{
+			float DeltaY = (float)dy * Sensitivity;
+
+			Y = rotate(Y, DeltaY, X);
+			Z = rotate(Z, DeltaY, X);
+
+			if (Y.y < 0.0f)
+			{
+				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+				Y = cross(Z, X);
+			}
+		}
+
+		Position = Reference + Z * length(Position);
+	}
+	else if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT){
+		mat4x4 matrix;
+		App->player->vehicle->GetTransform(&matrix);
+
+		vec3 VehicleLocation = { matrix[12],matrix[13],matrix[14] };
+		VehicleLocation.y += 3;
+		VehicleLocation.z += 4;
+		Reference = Position = VehicleLocation;
+
+
+		LookAt({ VehicleLocation.x,VehicleLocation.y+3,VehicleLocation.z+10 });
+	}
+	else {
+		mat4x4 matrix;
+		App->player->vehicle->GetTransform(&matrix);
+
+		vec3 VehicleLocation = { matrix[12],matrix[13],matrix[14] };
+		VehicleLocation.y += 12;
+		VehicleLocation.z -= 20;
+		Reference = Position = VehicleLocation;
+
+
+		LookAt({ VehicleLocation.x,VehicleLocation.y -2,VehicleLocation.z+10 });
+	}
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
 	return UPDATE_CONTINUE;
 }
+
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference)
