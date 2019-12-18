@@ -21,7 +21,7 @@ PhysVehicle3D::~PhysVehicle3D()
 }
 
 // ----------------------------------------------------------------------------
-void PhysVehicle3D::Render()
+void PhysVehicle3D::Render(int lives)
 {
 	Cylinder wheel;
 
@@ -37,9 +37,19 @@ void PhysVehicle3D::Render()
 
 		wheel.Render();
 	}
-
 	Cube chassis(info.chassis_size.x, info.chassis_size.y, info.chassis_size.z);
-	chassis.color = White;
+	if (lives == 3) {
+		chassis.color = White;
+	}
+	else if (lives == 2) {
+		chassis.color = Blue;
+	}
+	else if (lives == 1) {
+		chassis.color = Red;
+	}
+	else if (lives == 0) {
+		chassis.color = Black;
+	}
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
 	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
 	btVector3 offset(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z);
