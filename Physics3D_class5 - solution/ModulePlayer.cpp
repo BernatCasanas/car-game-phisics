@@ -21,8 +21,8 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(4, 4, 10);
-	car.chassis_offset.Set(0, 2.5, 0);
+	car.chassis_size.Set(2,1, 4);
+	car.chassis_offset.Set(0, 1.5, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
@@ -45,11 +45,11 @@ bool ModulePlayer::Start()
 	vec3 direction(0,-1,0);
 	vec3 axis(-1,0,0);
 	
-	car.num_wheels = 6;
-	car.wheels = new Wheel[6];
+	car.num_wheels = 2;
+	car.wheels = new Wheel[2];
 
 	// FRONT-LEFT ------------------------
-	car.wheels[0].connection.Set(half_width - 0.3f * wheel_width, connection_height, half_length - wheel_radius);
+	car.wheels[0].connection.Set(0, connection_height, half_length - wheel_radius);
 	car.wheels[0].direction = direction;
 	car.wheels[0].axis = axis;
 	car.wheels[0].suspensionRestLength = suspensionRestLength;
@@ -61,7 +61,7 @@ bool ModulePlayer::Start()
 	car.wheels[0].steering = true;
 
 	// FRONT-RIGHT ------------------------
-	car.wheels[1].connection.Set(-half_width + 0.3f * wheel_width, connection_height, half_length - wheel_radius);
+	car.wheels[1].connection.Set(0, connection_height, -half_length + wheel_radius);
 	car.wheels[1].direction = direction;
 	car.wheels[1].axis = axis;
 	car.wheels[1].suspensionRestLength = suspensionRestLength;
@@ -69,9 +69,9 @@ bool ModulePlayer::Start()
 	car.wheels[1].width = wheel_width;
 	car.wheels[1].front = true;
 	car.wheels[1].drive = true;
-	car.wheels[1].brake = false;
-	car.wheels[1].steering = true;
-
+	car.wheels[1].brake = true;
+	car.wheels[1].steering = false;
+/*
 	// MIDDLE-LEFT ------------------------
 	car.wheels[2].connection.Set(half_width - 0.3f * wheel_width, connection_height, (-half_length / 12) + wheel_radius);
 	car.wheels[2].direction = direction;
@@ -119,7 +119,7 @@ bool ModulePlayer::Start()
 	car.wheels[5].drive = false;
 	car.wheels[5].brake = true;
 	car.wheels[5].steering = false;
-
+	*/
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 12, 10);
 	

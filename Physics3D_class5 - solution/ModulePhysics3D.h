@@ -18,6 +18,7 @@ class ModulePhysics3D : public Module
 {
 public:
 	ModulePhysics3D(Application* app, bool start_enabled = true);
+	ModulePhysics3D(btRigidBody* body);
 	~ModulePhysics3D();
 
 	bool Init();
@@ -38,7 +39,6 @@ public:
 private:
 
 	bool debug;
-	bool is_sensor = false;
 
 	btDefaultCollisionConfiguration*	collision_conf;
 	btCollisionDispatcher*				dispatcher;
@@ -53,23 +53,9 @@ private:
 	p2List<btDefaultMotionState*> motions;
 	p2List<btTypedConstraint*> constraints;
 	p2List<PhysVehicle3D*> vehicles;
-};
-
-enum class SensorType {
 
 };
 
-struct PhysSensor3D : public ModulePhysics3D
-{
-public:
-	PhysSensor3D(btRigidBody* body, SensorType type);
-	~PhysSensor3D() {};
-	void SetAsSensor(bool is_sensor) {};
-
-private:
-	SensorType type;
-	bool isEnabled;
-};
 
 class DebugDrawer : public btIDebugDraw
 {
