@@ -8,6 +8,7 @@
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
+	lives = 3;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -164,8 +165,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
-
-	vehicle->Render();
+	vehicle->Render(lives);
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());

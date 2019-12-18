@@ -53,7 +53,7 @@ App->physics->AddConstraintHinge(cube, cube2, { 5,0,-0.5 }, { -5,0,-0.5 }, v, v)
 
 ////MODULEPHYSICS.H
 //void AddConstraintHinge(const Primitive* bodyA, const Primitive* bodyB, const btVector3& pivotinA, const btVector3& pivotinB, btVector3& axisInA, btVector3& axisInB);
-
+////p2List<btHingeConstraint*>			hinge_constraint;
 
 ////MODULEPHYSICS.CPP
 /*

@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "p2List.h"
 #include "Primitive.h"
-
+#include "PhysBody3D.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
