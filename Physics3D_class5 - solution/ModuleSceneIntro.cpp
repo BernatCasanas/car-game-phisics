@@ -28,7 +28,7 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 	float z = 0, x = -11;
-	for (z; z <= 500; z += 1.5) {
+	for (z; z <= 1000; z += 1.5) {
 		if (par % 2 == 0) {
 			color = "Red";
 		}
@@ -57,9 +57,36 @@ bool ModuleSceneIntro::Start()
 		par++;
 	}
 
+	int random_color;
+
 	//Obstacles Randomly setted
-	for (float i = 18; i <= 500; i += 10.5) {
+	for (float i = 18; i <= 1000; i += 10.5) {
 		r = rand() % 24 - 12;
+		random_color = rand() % 6 + 1;
+		switch (random_color)
+		{
+		case 1:
+			color = "Green";
+			break;
+		case 2:
+			color = "Blue";
+			break;
+		case 3:
+			color = "Pink";
+			break;
+		case 4:
+			color = "Black";
+			break;
+		case 5:
+			color = "Yellow";
+			break;
+		case 6:
+			color = "Cian";
+			break;
+		default:
+			LOG("something went wrong", "%s");
+			break;
+		}
 		createRectangle({ r, 0, i }, { 1, 2, 1 }, color);
 	}
 
@@ -80,10 +107,23 @@ void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color)
 	if (pos.y == 0) {
 		pos.y += size.y * 0.5;
 	}
-	if(color =="White")
+	if (color == "White")
 		object->color = White;
 	else if (color == "Red")
 		object->color = Red;
+	else if (color == "Cian")
+		object->color = Cian;
+	else if (color == "Green")
+		object->color = Green;
+	else if (color == "Pink")
+		object->color = Pink;
+	else if (color == "Blue")
+		object->color = Blue;
+	else if (color == "Yellow")
+		object->color = Yellow;
+	else if (color == "Black")
+		object->color = Black;
+
 	object->SetPos(pos.x, pos.y, pos.z);
 	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);
