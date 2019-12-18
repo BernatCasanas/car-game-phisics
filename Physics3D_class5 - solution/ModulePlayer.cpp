@@ -122,7 +122,7 @@ bool ModulePlayer::Start()
 	car.wheels[5].steering = false;
 	*/
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 12, 10);
+	vehicle->SetPos(0, 0, 10);
 	
 	return true;
 }
@@ -165,6 +165,15 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+		App->player->lives = 3;
+		App->player->acceleration = 0;
+		App->player->brake = 0;
+		App->player->turn = 0;
+		App->player->SetPos(0, 0, 10);
+		App->player->vehicle->ResetVelocityAndRotation();
+	}
 	vehicle->Render(lives);
 
 	char title[80];

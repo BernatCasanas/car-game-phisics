@@ -104,3 +104,12 @@ float PhysVehicle3D::GetKmh() const
 {
 	return vehicle->getCurrentSpeedKmHour();
 }
+
+
+void PhysVehicle3D::ResetVelocityAndRotation() {
+	vehicle->getRigidBody()->setAngularVelocity({ 0,0,0 });
+	vehicle->getRigidBody()->setLinearVelocity({ 0,0,0 });
+	btTransform t=vehicle->getRigidBody()->getWorldTransform();
+	t.setRotation({ 0,0,0,1 });
+	vehicle->getRigidBody()->setWorldTransform(t);
+}
