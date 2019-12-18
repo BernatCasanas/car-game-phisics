@@ -61,4 +61,16 @@ void ModulePhysics3D::AddConstraintHinge(const Primitive* bodyA, const Primitive
 	btHingeConstraint* addconstraint = new btHingeConstraint(*bodyA->body.GetBody(), *bodyB->body.GetBody(), pivotinA, pivotinB, axisInA, axisInB);
 	hinge_constraint.add(addconstraint);
 	world->addConstraint(addconstraint);
-}*/
+}
+
+
+Clean up
+
+
+btHingeConstraint* h_constr;
+	for (int i = 0; i < hinge_constraint.count(); i++) {
+		hinge_constraint.at(i, h_constr);
+		world->removeConstraint(h_constr);
+		delete h_constr;
+	}
+	*/
