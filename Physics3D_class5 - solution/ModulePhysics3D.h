@@ -59,12 +59,12 @@ enum class SensorType {
 
 };
 
-struct PhysSensor3D : public PhysBody3D
+struct PhysSensor3D : public ModulePhysics3D
 {
 public:
 	PhysSensor3D(btRigidBody* body, SensorType type);
 	~PhysSensor3D() {};
-	void SetAsSensor(bool is_sensor);
+	void SetAsSensor(bool is_sensor) {};
 
 private:
 	SensorType type;

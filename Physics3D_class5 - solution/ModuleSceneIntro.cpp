@@ -33,8 +33,8 @@ bool ModuleSceneIntro::Start()
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ 12, 0, z }, { 1, 2, 1 }, color);
-		createRectangle({ -12, 0, z }, { 1, 2, 1 }, color);
+		createRectangle({ 12, 0, z }, { 1, 5, 1 }, color);
+		createRectangle({ -12, 0, z }, { 1, 5, 1 }, color);
 		par++;
 	}
 
@@ -44,7 +44,7 @@ bool ModuleSceneIntro::Start()
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ x, 0, 0 }, { 1, 2, 1 }, color);
+		createRectangle({ x, 0, 0 }, { 1, 5, 1 }, color);
 		par++;
 	}
 	x = -7;
@@ -53,7 +53,7 @@ bool ModuleSceneIntro::Start()
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ x, 0, z }, { 1, 2, 1 }, color);
+		createRectangle({ x, 0, z }, { 1, 5, 1 }, color);
 		par++;
 	}
 
@@ -87,7 +87,7 @@ bool ModuleSceneIntro::Start()
 			LOG("something went wrong", "%s");
 			break;
 		}
-		createRectangle({ r, 0, i }, { 1, 2, 1 }, color);
+		createRectangle({ r, 0, i }, { 1, 3, 1 }, color);
 	}
 
 	return ret;
