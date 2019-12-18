@@ -37,3 +37,19 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "3D Physics Playground"
+
+
+
+/////MODULESCENE.CPP
+
+/*Cube* cube = new Cube({ 10,10,1 }, 0);
+cube->SetPos(11, 5, 12);
+primitives.PushBack(cube);
+Cube* cube2 = new Cube({ 10,10,1 }, 1);
+cube2->SetPos(21, 5, 12);
+primitives.PushBack(cube2);
+btVector3 v = { 0,1,0 };
+App->physics->AddConstraintHinge(cube, cube2, { 5,0,-0.5 }, { -5,0,-0.5 }, v, v);*/
+
+////MODULEPHYSICS.H
+//void AddConstraintHinge(const Primitive* bodyA, const Primitive* bodyB, const btVector3& pivotinA, const btVector3& pivotinB, btVector3& axisInA, btVector3& axisInB);
