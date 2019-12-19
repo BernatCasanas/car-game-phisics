@@ -215,6 +215,7 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	if (win) {
 		App->audio->PlayFx(2);
+		App->player->Restart(true);
 		win = false;
 	}
 	if (hit) {
