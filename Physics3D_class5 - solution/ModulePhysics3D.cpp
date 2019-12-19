@@ -103,6 +103,10 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 					item = item->next;
 				}
 			}
+
+			else if(pbodyB){
+				pbodyB->collision_listeners.getFirst()->data->OnCollision(pbodyB, pbodyB);
+			}
 		}
 	}
 
