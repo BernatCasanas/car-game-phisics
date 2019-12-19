@@ -205,7 +205,10 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1->type == PhysBody3D::Sensor_Type::OBSTACLE) {
-		LOG("%s", "hola");
+		App->player->Restart();
+	}
+	else if (body1->type == PhysBody3D::Sensor_Type::WALL) {
+		//App->player->Restart();
 	}
 }
 
