@@ -166,6 +166,7 @@ void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size,vec3 po
 	pobject2->collision_listeners.add(this);
 	pobject2->SetAsSensor(false);
 	sensors.add(pobject2);
+
 	vec3 v = { 0,1,0 };
 	if (pos.x > 0) {
 		App->physics->AddConstraintHinge(*pobject, *pobject2, { (size.x / 2)-1,0,0 }, { -(size2.x / 2),0,0 }, v, v);
