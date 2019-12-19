@@ -9,3 +9,4 @@ Color Black = Color(0.0f, 0.0f, 0.0f);
 Color Yellow = Color(1.0f, 1.0f, 0.0f);
 Color Cian = Color(0.0f, 1.0f, 1.0f);
 Color Pink = Color(1.0f, 0.0f, 1.0f);
+Color NoColor = Color(0.0f, 0.0f, 0.0f);

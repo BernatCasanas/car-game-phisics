@@ -33,3 +33,4 @@ extern Color White;
 extern Color Yellow;
 extern Color Cian;
 extern Color Pink;
+extern Color NoColor;

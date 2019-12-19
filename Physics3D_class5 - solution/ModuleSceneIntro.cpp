@@ -36,6 +36,8 @@ bool ModuleSceneIntro::Start()
 		if (z == 499.5) {
 			createRectangleWithConstraint({ 12, 0, z }, { 1, 5, 1 }, { 6, 0, z }, { 11, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
 			createRectangleWithConstraint({ -12, 0, z }, { 1, 5, 1 }, { -6, 0, z }, { 11, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
+			color = "NoColor";
+			createRectangle({ -5, 0, z }, { 10, 5, 1 }, color, PhysBody3D::Sensor_Type::CHECKPOINT);
 		}
 		else {
 			createRectangle({ 12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
@@ -208,7 +210,13 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		App->player->Restart();
 	}
 	else if (body1->type == PhysBody3D::Sensor_Type::WALL) {
-		//App->player->Restart();
+		//Nothing
+	}
+	else if (body1->type == PhysBody3D::Sensor_Type::WIN) {
+		
+	}
+	else if (body1->type == PhysBody3D::Sensor_Type::CHECKPOINT) {
+
 	}
 }
 
