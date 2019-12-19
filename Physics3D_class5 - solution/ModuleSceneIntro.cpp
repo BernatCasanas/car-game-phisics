@@ -23,6 +23,7 @@ bool ModuleSceneIntro::Start()
 	float r;
 	int par = 1;
 	char* color;
+	App->audio->PlayMusic("Assets/Music/song.ogg");
 
 	//Horizontal Limits
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
