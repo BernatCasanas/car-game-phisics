@@ -28,6 +28,7 @@ public:
 	float acceleration;
 	float brake;
 	int lives;
+	int hits;
 	int max_lives;
 	bool checkpoint;
 };

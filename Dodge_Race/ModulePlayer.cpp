@@ -11,6 +11,7 @@ ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, s
 	turn = acceleration = brake = 0.0f;
 	lives = 3;
 	max_lives = 3;
+	hits = 0;
 	checkpoint = false;
 }
 
@@ -148,9 +149,12 @@ update_status ModulePlayer::Update(float dt)
 		Restart(true);
 	}
 	vehicle->Render(lives);
-
+	int level;
+	if (max_lives == 3)level = 1;
+	else if (max_lives == 2)level = 2;
+	else if (max_lives == 1)level = 3;
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "Score:          Level  %d          Hits  %d", level, hits);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;

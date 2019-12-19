@@ -143,6 +143,9 @@ void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color, PhysBod
 	cube_list.add(object);
 	PhysBody3D* pobject = App->physics->AddBody(*object, type, 0.0f);
 	pobject->collision_listeners.add(this);
+	object->body = pobject;
+	primitive_list.add(object);
+
 	if (type == PhysBody3D::Sensor_Type::CHECKPOINT || type == PhysBody3D::Sensor_Type::WIN) {
 		pobject->SetAsSensor(true);
 		sensors.add(pobject);
@@ -163,9 +166,12 @@ void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size,vec3 po
 	object->SetPos(pos.x, pos.y, pos.z);
 	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);
+	
 
 	PhysBody3D* pobject = App->physics->AddBody(*object, type, 0.0f);
 	pobject->collision_listeners.add(this);
+	object->body = pobject;
+	primitive_list.add(object);
 
 	Cube* object2 = new Cube(size2.x, size2.y, size2.z);
 
@@ -210,9 +216,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p2List_item<Primitive*>* primitive = primitive_list.getFirst();
 
 	for (primitive; primitive != nullptr; primitive = primitive->next) {
-		// matrix;
 		primitive->data->body->GetTransform(&primitive->data->transform);
-		//primitive->data->transform = matrix;
 		primitive->data->Render();
 	}
 
@@ -232,6 +236,7 @@ update_status ModuleSceneIntro::Update(float dt)
 			App->audio->PlayFx(3);
 			App->player->lives--;
 		}
+		App->player->hits++;
 		hit = false;
 	}
 
