@@ -218,6 +218,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	if (win) {
 		App->audio->PlayFx(2);
+		App->player->checkpoint = false;
+		if (App->player->max_lives > 1)App->player->max_lives--;
 		App->player->Restart(true);
 		win = false;
 	}
@@ -225,7 +227,6 @@ update_status ModuleSceneIntro::Update(float dt)
 		if (App->player->lives == 1) {
 			App->audio->PlayFx(1);
 			App->player->Restart(true);
-			App->player->lives = 3;
 		}
 		else {
 			App->audio->PlayFx(3);

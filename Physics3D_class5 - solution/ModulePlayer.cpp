@@ -10,6 +10,7 @@ ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, s
 {
 	turn = acceleration = brake = 0.0f;
 	lives = 3;
+	max_lives = 3;
 	checkpoint = false;
 }
 
@@ -69,7 +70,7 @@ bool ModulePlayer::Start()
 	car.wheels[0].brake = false;
 	car.wheels[0].steering = true;
 
-	// FRONT-RIGHT ------------------------
+	// BACK-RIGHT ------------------------
 	car.wheels[1].connection.Set(-half_width + 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
 	car.wheels[1].direction = direction;
 	car.wheels[1].axis = axis;
@@ -81,7 +82,7 @@ bool ModulePlayer::Start()
 	car.wheels[1].brake = true;
 	car.wheels[1].steering = false;
 
-	// MIDDLE-LEFT ------------------------
+	// BACK-LEFT ------------------------
 	car.wheels[2].connection.Set(half_width - 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
 	car.wheels[2].direction = direction;
 	car.wheels[2].axis = axis;
@@ -92,43 +93,7 @@ bool ModulePlayer::Start()
 	car.wheels[2].drive = false;
 	car.wheels[2].brake = true;
 	car.wheels[2].steering = false;
-	/*
-	// MIDDLE-RIGHT ------------------------
-	car.wheels[3].connection.Set(-half_width + 0.3f * wheel_width, connection_height, (-half_length / 12) + wheel_radius);
-	car.wheels[3].direction = direction;
-	car.wheels[3].axis = axis;
-	car.wheels[3].suspensionRestLength = suspensionRestLength;
-	car.wheels[3].radius = wheel_radius;
-	car.wheels[3].width = wheel_width;
-	car.wheels[3].front = false;
-	car.wheels[3].drive = false;
-	car.wheels[3].brake = false;
-	car.wheels[3].steering = false;
-
-	// REAR-LEFT ------------------------
-	car.wheels[4].connection.Set(half_width - 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
-	car.wheels[4].direction = direction;
-	car.wheels[4].axis = axis;
-	car.wheels[4].suspensionRestLength = suspensionRestLength;
-	car.wheels[4].radius = wheel_radius;
-	car.wheels[4].width = wheel_width;
-	car.wheels[4].front = false;
-	car.wheels[4].drive = false;
-	car.wheels[4].brake = true;
-	car.wheels[4].steering = false;
-
-	// REAR-RIGHT ------------------------
-	car.wheels[5].connection.Set(-half_width + 0.3f * wheel_width, connection_height, -half_length + wheel_radius);
-	car.wheels[5].direction = direction;
-	car.wheels[5].axis = axis;
-	car.wheels[5].suspensionRestLength = suspensionRestLength;
-	car.wheels[5].radius = wheel_radius;
-	car.wheels[5].width = wheel_width;
-	car.wheels[5].front = false;
-	car.wheels[5].drive = false;
-	car.wheels[5].brake = true;
-	car.wheels[5].steering = false;
-	*/
+	
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 10);
 
@@ -180,9 +145,6 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
-		Restart();
-	}
-	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
 		Restart(true);
 	}
 	vehicle->Render(lives);
@@ -200,7 +162,7 @@ void ModulePlayer::SetPos(float x, float y, float z) {
 
 void ModulePlayer::Restart(bool check_checkpoint)
 {
-	App->player->lives = 3;
+	App->player->lives = max_lives;
 	App->player->acceleration = 0;
 	App->player->brake = 0;
 	App->player->turn = 0;
