@@ -146,3 +146,8 @@ void PhysVehicle3D::ResetVelocityAndRotation() {
 	t.setRotation({ 0,0,0,1 });
 	vehicle->getRigidBody()->setWorldTransform(t);
 }
+
+vec3 PhysVehicle3D::GetForwardVector() {
+	btVector3 bt = vehicle->getForwardVector();
+	return{ bt.x(),bt.y(),bt.z() };
+}

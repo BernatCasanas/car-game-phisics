@@ -14,6 +14,8 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	Position = vec3(-2.0f, 0.0f, -5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
+
+	first_person = false;
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -125,7 +127,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();*/
-
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		first_person = !first_person;
+	}
 	return UPDATE_CONTINUE;
 }
 
@@ -188,7 +192,7 @@ update_status ModuleCamera3D::PostUpdate(float dt)
 
 		Position = Reference + Z * length(Position);
 	}
-	else if(App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT){
+	else if(first_person==true){
 		mat4x4 matrix;
 		App->player->vehicle->GetTransform(&matrix);
 
@@ -196,9 +200,10 @@ update_status ModuleCamera3D::PostUpdate(float dt)
 		VehicleLocation.y += 3;
 		VehicleLocation.z += 4;
 		Reference = Position = VehicleLocation;
+		
+		vec3 z = App->player->vehicle->GetForwardVector();
 
-
-		LookAt({ VehicleLocation.x,VehicleLocation.y+3,VehicleLocation.z+10 });
+		LookAt({ z.x*5+VehicleLocation.x,z.y * 5 + VehicleLocation.y,z.z * 5+ VehicleLocation.z });
 	}
 	else {
 		mat4x4 matrix;
