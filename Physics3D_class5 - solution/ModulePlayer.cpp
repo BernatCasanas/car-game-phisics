@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
+#include "ModuleSceneIntro.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
@@ -203,7 +204,7 @@ void ModulePlayer::Restart(bool check_checkpoint)
 	App->player->acceleration = 0;
 	App->player->brake = 0;
 	App->player->turn = 0;
-	if (check_checkpoint == true && checkpoint == true) {
+	if (check_checkpoint == true && checkpoint == true && App->scene_intro->win==false) {
 		App->player->SetPos(0, 0, 510);
 	}
 	else {
