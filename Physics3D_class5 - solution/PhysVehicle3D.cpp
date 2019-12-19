@@ -60,25 +60,25 @@ void PhysVehicle3D::Render(int lives)
 	chassis.transform.M[14] += offset.getZ();
 
 
-	Cube front_left(info.front_left_size.x, info.front_left_size.y, info.front_left_size.z);
-	front_left.color = chassis.color;
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&front_left.transform);
-	btVector3 offset2(info.front_left_offset.x, info.front_left_offset.y, info.front_left_offset.z);
+	Cube back_left(info.back_left_size.x, info.back_left_size.y, info.back_left_size.z);
+	back_left.color = chassis.color;
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&back_left.transform);
+	btVector3 offset2(info.back_left_offset.x, info.back_left_offset.y, info.back_left_offset.z);
 	offset2 = offset2.rotate(q.getAxis(), q.getAngle());
 
-	front_left.transform.M[12] += offset2.getX();
-	front_left.transform.M[13] += offset2.getY();
-	front_left.transform.M[14] += offset2.getZ();
+	back_left.transform.M[12] += offset2.getX();
+	back_left.transform.M[13] += offset2.getY();
+	back_left.transform.M[14] += offset2.getZ();
 
-	Cube front_right(info.front_right_size.x, info.front_right_size.y, info.front_right_size.z);
-	front_right.color = chassis.color;
-	vehicle->getChassisWorldTransform().getOpenGLMatrix(&front_right.transform);
-	btVector3 offset3(info.front_right_offset.x, info.front_right_offset.y, info.front_right_offset.z);
+	Cube back_right(info.back_right_size.x, info.back_right_size.y, info.back_right_size.z);
+	back_right.color = chassis.color;
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&back_right.transform);
+	btVector3 offset3(info.back_right_offset.x, info.back_right_offset.y, info.back_right_offset.z);
 	offset3 = offset3.rotate(q.getAxis(), q.getAngle());
 
-	front_right.transform.M[12] += offset3.getX();
-	front_right.transform.M[13] += offset3.getY();
-	front_right.transform.M[14] += offset3.getZ();
+	back_right.transform.M[12] += offset3.getX();
+	back_right.transform.M[13] += offset3.getY();
+	back_right.transform.M[14] += offset3.getZ();
 
 	Cube chassis_up(info.chassis_up_size.x, info.chassis_up_size.y, info.chassis_up_size.z);
 	chassis_up.color = chassis.color;
@@ -91,8 +91,8 @@ void PhysVehicle3D::Render(int lives)
 	chassis_up.transform.M[14] += offset4.getZ();
 
 	chassis.Render();
-	front_left.Render();
-	front_right.Render();
+	back_left.Render();
+	back_right.Render();
 	chassis_up.Render();
 }
 
