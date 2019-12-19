@@ -44,8 +44,8 @@ bool ModuleSceneIntro::Start()
 			//createRectangle({ -5, 0, z }, { 10, 5, 1 }, color, PhysBody3D::Sensor_Type::CHECKPOINT);
 		}
 		else {
-			createRectangle({ 12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
-			createRectangle({ -12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
+			createRectangle({ 12, 0, z }, { 1, 10, 1 }, color, PhysBody3D::Sensor_Type::WALL);
+			createRectangle({ -12, 0, z }, { 1, 10, 1 }, color, PhysBody3D::Sensor_Type::WALL);
 		}
 		par++;
 	}
