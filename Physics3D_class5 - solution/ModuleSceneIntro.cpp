@@ -145,29 +145,37 @@ void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size,vec3 po
 	if (pos.y == 0) {
 		pos.y += size.y * 0.5;
 	}
+
 	if (color == "White")
 		object->color = White;
 	else if (color == "Red")
 		object->color = Red;
+
 	object->SetPos(pos.x, pos.y, pos.z);
 	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);
+
 	PhysBody3D* pobject = App->physics->AddBody(*object, type, 0.0f);
 	pobject->collision_listeners.add(this);
 	pobject->SetAsSensor(false);
 	sensors.add(pobject);
+
 	Cube* object2 = new Cube(size2.x, size2.y, size2.z);
+
 	if (pos2.y == 0) {
 		pos2.y += size2.y * 0.5;
 	}
+
 	object2->color = Green;
 	object2->SetPos(pos2.x, pos2.y, pos2.z);
 	object2->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object2);
+
 	PhysBody3D* pobject2 = App->physics->AddBody(*object2, type2, 1.0f);
 	pobject2->collision_listeners.add(this);
 	pobject2->SetAsSensor(false);
 	sensors.add(pobject2);
+
 	vec3 v = { 0,1,0 };
 	if (pos.x > 0) {
 		App->physics->AddConstraintHinge(*pobject, *pobject2, { (size.x / 2)-1,0,0 }, { -(size2.x / 2),0,0 }, v, v);
