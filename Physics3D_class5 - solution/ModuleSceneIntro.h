@@ -20,7 +20,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	void createRectangle(vec3 pos, vec3 size, char* color, PhysBody3D::Sensor_Type type);
-	void createRectangleWithConstraint(vec3 pos, vec3 size, char* color, PhysBody3D::Sensor_Type type, PhysBody3D::Sensor_Type type2);
+	void createRectangleWithConstraint(vec3 pos, vec3 size, vec3 pos2, vec3 size2, char* color, PhysBody3D::Sensor_Type type, PhysBody3D::Sensor_Type type2);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
