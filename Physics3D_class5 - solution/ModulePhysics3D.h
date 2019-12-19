@@ -5,6 +5,7 @@
 #include "Primitive.h"
 #include "PhysBody3D.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
+#include "PhysBody3D.h"
 
 // Recommended scale is 1.0f == 1 meter, no less than 0.2 objects
 #define GRAVITY btVector3(0.0f, -10.0f, 0.0f) 
@@ -29,7 +30,7 @@ public:
 	bool CleanUp();
 
 	PhysBody3D* AddBody(const Sphere& sphere, float mass = 1.0f);
-	PhysBody3D* AddBody(const Cube& cube, float mass = 1.0f);
+	PhysBody3D* AddBody(const Cube& cube, PhysBody3D::Sensor_Type type, float mass = 1.0f);
 	PhysBody3D* AddBody(const Cylinder& cylinder, float mass = 1.0f);
 	PhysVehicle3D* AddVehicle(const VehicleInfo& info);
 

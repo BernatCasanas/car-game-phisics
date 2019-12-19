@@ -33,8 +33,8 @@ bool ModuleSceneIntro::Start()
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ 12, 0, z }, { 1, 5, 1 }, color);
-		createRectangle({ -12, 0, z }, { 1, 5, 1 }, color);
+		createRectangle({ 12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
+		createRectangle({ -12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
 		par++;
 	}
 
@@ -44,7 +44,7 @@ bool ModuleSceneIntro::Start()
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ x, 0, 0 }, { 1, 5, 1 }, color);
+		createRectangle({ x, 0, 0 }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
 		par++;
 	}
 	x = -7;
@@ -53,7 +53,7 @@ bool ModuleSceneIntro::Start()
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ x, 0, z }, { 1, 5, 1 }, color);
+		createRectangle({ x, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
 		par++;
 	}
 
@@ -62,7 +62,7 @@ bool ModuleSceneIntro::Start()
 	//Obstacles Randomly setted
 	for (float i = 18; i <= 1000; i += 10.5) {
 		r = rand() % 24 - 12;
-		random_color = rand() % 6 + 1;
+		random_color = rand() % 5 + 1;
 		switch (random_color)
 		{
 		case 1:
@@ -75,19 +75,16 @@ bool ModuleSceneIntro::Start()
 			color = "Pink";
 			break;
 		case 4:
-			color = "Black";
-			break;
-		case 5:
 			color = "Yellow";
 			break;
-		case 6:
+		case 5:
 			color = "Cian";
 			break;
 		default:
 			LOG("something went wrong", "%s");
 			break;
 		}
-		createRectangle({ r, 0, i }, { 1, 3, 1 }, color);
+		createRectangle({ r, 0, i }, { 1, 3, 1 }, color, PhysBody3D::Sensor_Type::OBSTACLE);
 	}
 
 	return ret;
@@ -101,7 +98,7 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
-void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color)
+void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color, PhysBody3D::Sensor_Type type)
 {
 	Cube* object = new Cube(size.x, size.y, size.z);
 	if (pos.y == 0) {
@@ -127,8 +124,10 @@ void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color)
 	object->SetPos(pos.x, pos.y, pos.z);
 	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);
-	App->physics->AddBody(*object, 0.0f);
-
+	PhysBody3D* pobject = App->physics->AddBody(*object, type, 0.0f);
+	pobject->collision_listeners.add(this);
+	pobject->SetAsSensor(false);
+	sensors.add(pobject);
 }
 
 // Update
@@ -150,5 +149,8 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+	if (body1->type == PhysBody3D::Sensor_Type::OBSTACLE) {
+		LOG("%s", "hola");
+	}
 }
 

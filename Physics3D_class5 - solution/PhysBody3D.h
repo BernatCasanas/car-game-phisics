@@ -7,9 +7,8 @@ class btRigidBody;
 class Module;
 
 // =================================================
-enum class SensorType {
 
-};
+
 
 struct PhysBody3D
 {
@@ -22,27 +21,23 @@ public:
 	void GetTransform(float* matrix) const;
 	void SetTransform(const float* matrix) const;
 	void SetPos(float x, float y, float z);
+	void SetAsSensor(bool is_sensor);
 
-protected:
+private:
 	btRigidBody* body = nullptr;
 
 public:
 	p2List<Module*> collision_listeners;
-protected:
 	bool is_sensor;
+	bool sensor_enabled = false;
 
+	enum class Sensor_Type {
+		OBSTACLE,
+		WIN,
+		WALL,
+	};
+
+	PhysBody3D::Sensor_Type type;
 };
-
-
-struct PhysSensor3D : public PhysBody3D
-{
-public:
-	PhysSensor3D(btRigidBody* body, SensorType type);
-	~PhysSensor3D() {};
-	void SetAsSensor(bool is_sensor);
-	SensorType type;
-	bool isEnabled;
-};
-
 
 #endif // __PhysBody3D_H__

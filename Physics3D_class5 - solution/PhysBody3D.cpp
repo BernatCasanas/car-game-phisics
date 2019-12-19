@@ -46,12 +46,7 @@ void PhysBody3D::SetPos(float x, float y, float z)
 	body->setWorldTransform(t);
 }
 
-PhysSensor3D::PhysSensor3D(btRigidBody * body, SensorType type) : PhysBody3D(body)
-{
-	
-}
-
-void PhysSensor3D::SetAsSensor(bool is_sensor)
+void PhysBody3D::SetAsSensor(bool is_sensor)
 {
 	if (this->is_sensor != is_sensor)
 	{
@@ -59,6 +54,6 @@ void PhysSensor3D::SetAsSensor(bool is_sensor)
 		if (is_sensor == true)
 			body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 		else
-			body->setCollisionFlags(body->getCollisionFlags() &~btCollisionObject::CF_NO_CONTACT_RESPONSE);
-	}
+			body->setCollisionFlags(body->getCollisionFlags() & ~btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	}
 }

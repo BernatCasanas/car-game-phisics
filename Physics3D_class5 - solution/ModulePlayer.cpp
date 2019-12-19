@@ -123,6 +123,11 @@ bool ModulePlayer::Start()
 	*/
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 0, 10);
+
+	for (p2List_item<PhysBody3D*>* item = App->scene_intro->sensors.getFirst() ; item != App->scene_intro->sensors.getLast(); item = item->next)
+	{
+		item->data->sensor_enabled = false;
+	}
 	
 	return true;
 }

@@ -3,6 +3,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "PhysBody3D.h"
 
 #define MAX_SNAKE 2
 
@@ -18,18 +19,11 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-	void createRectangle(vec3 pos, vec3 size, char* color);
+	void createRectangle(vec3 pos, vec3 size, char* color, PhysBody3D::Sensor_Type type);
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
 public:
-	/*
-	PhysBody3D* pb_snake[MAX_SNAKE];
-	Sphere s_snake[MAX_SNAKE];
-
-	PhysBody3D* pb_snake2[MAX_SNAKE];
-	Sphere s_snake2[MAX_SNAKE];
-	*/
 
 	p2List<Cube*> cube_list;
 
@@ -44,4 +38,6 @@ public:
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
+
+	p2List<PhysBody3D*> sensors;
 };

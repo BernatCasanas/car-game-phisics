@@ -220,7 +220,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Sphere& sphere, float mass)
 
 
 // ---------------------------------------------------------
-PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
+PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, PhysBody3D::Sensor_Type type, float mass)
 {
 	btCollisionShape* colShape = new btBoxShape(btVector3(cube.size.x*0.5f, cube.size.y*0.5f, cube.size.z*0.5f));
 	shapes.add(colShape);
@@ -242,6 +242,7 @@ PhysBody3D* ModulePhysics3D::AddBody(const Cube& cube, float mass)
 	body->setUserPointer(pbody);
 	world->addRigidBody(body);
 	bodies.add(pbody);
+	pbody->type = type;
 
 	return pbody;
 }
