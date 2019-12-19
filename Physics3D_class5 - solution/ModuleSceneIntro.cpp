@@ -33,8 +33,14 @@ bool ModuleSceneIntro::Start()
 			color = "Red";
 		}
 		else color = "White";
-		createRectangle({ 12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
-		createRectangle({ -12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
+		if (z == 499.5) {
+			createRectangleWithConstraint({ 12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
+			createRectangleWithConstraint({ -12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
+		}
+		else {
+			createRectangle({ 12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
+			createRectangle({ -12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
+		}
 		par++;
 	}
 
@@ -121,6 +127,24 @@ void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color, PhysBod
 	else if (color == "Black")
 		object->color = Black;
 
+	object->SetPos(pos.x, pos.y, pos.z);
+	object->SetRotation(1, vec3(0, 1, 0));
+	cube_list.add(object);
+	PhysBody3D* pobject = App->physics->AddBody(*object, type, 0.0f);
+	pobject->collision_listeners.add(this);
+	pobject->SetAsSensor(false);
+	sensors.add(pobject);
+}
+
+void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size, char* color, PhysBody3D::Sensor_Type type, PhysBody3D::Sensor_Type type2) {
+	Cube* object = new Cube(size.x, size.y, size.z);
+	if (pos.y == 0) {
+		pos.y += size.y * 0.5;
+	}
+	if (color == "White")
+		object->color = White;
+	else if (color == "Red")
+		object->color = Red;
 	object->SetPos(pos.x, pos.y, pos.z);
 	object->SetRotation(1, vec3(0, 1, 0));
 	cube_list.add(object);

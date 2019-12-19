@@ -35,6 +35,7 @@ public:
 		OBSTACLE,
 		WIN,
 		WALL,
+		CHECKPOINT,
 	};
 
 	PhysBody3D::Sensor_Type type;
