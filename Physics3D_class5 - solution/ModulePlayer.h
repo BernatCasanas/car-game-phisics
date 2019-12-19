@@ -19,7 +19,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	void SetPos(float x, float y, float z);
-	void Restart();
+	void Restart(bool check_checkpoint=false);
 
 public:
 
@@ -28,4 +28,5 @@ public:
 	float acceleration;
 	float brake;
 	int lives;
+	bool checkpoint;
 };

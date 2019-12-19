@@ -159,8 +159,6 @@ void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size,vec3 po
 
 	PhysBody3D* pobject = App->physics->AddBody(*object, type, 0.0f);
 	pobject->collision_listeners.add(this);
-	pobject->SetAsSensor(false);
-	sensors.add(pobject);
 
 	Cube* object2 = new Cube(size2.x, size2.y, size2.z);
 
@@ -182,7 +180,7 @@ void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size,vec3 po
 
 	vec3 v = { 0,1,0 };
 	if (pos.x > 0) {
-		App->physics->AddConstraintHinge(*pobject, *pobject2, { (size.x / 2)-1,0,0 }, { -(size2.x / 2),0,0 }, v, v);
+		App->physics->AddConstraintHinge(*pobject, *pobject2, { (size.x / 2)-1,0,0 }, { (size2.x / 2),0,0 }, v, v);
 	}
 	else {
 		App->physics->AddConstraintHinge(*pobject, *pobject2, { -(size.x / 2)+1,0,0 }, { -(size2.x / 2),0,0 }, v, v);
@@ -218,16 +216,16 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1->type == PhysBody3D::Sensor_Type::OBSTACLE) {
-		App->player->Restart();
+		App->player->Restart(true);
 	}
 	else if (body1->type == PhysBody3D::Sensor_Type::WALL) {
 		//Nothing
 	}
 	else if (body1->type == PhysBody3D::Sensor_Type::WIN) {
-		
-	}
-	else if (body1->type == PhysBody3D::Sensor_Type::CHECKPOINT) {
 
+	}
+	else if (body1->type == PhysBody3D::Sensor_Type::CHECKPOINT && body2->type != PhysBody3D::Sensor_Type::WALL) {
+		App->player->checkpoint = true;
 	}
 }
 

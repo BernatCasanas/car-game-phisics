@@ -9,6 +9,7 @@ ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, s
 {
 	turn = acceleration = brake = 0.0f;
 	lives = 3;
+	checkpoint = false;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -180,6 +181,9 @@ update_status ModulePlayer::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
 		Restart();
 	}
+	else if (App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) {
+		Restart(true);
+	}
 	vehicle->Render(lives);
 
 	char title[80];
@@ -193,13 +197,18 @@ void ModulePlayer::SetPos(float x, float y, float z) {
 	vehicle->SetPos(x, y, z);
 }
 
-void ModulePlayer::Restart()
+void ModulePlayer::Restart(bool check_checkpoint)
 {
 	App->player->lives = 3;
 	App->player->acceleration = 0;
 	App->player->brake = 0;
 	App->player->turn = 0;
-	App->player->SetPos(0, 0, 10);
+	if (check_checkpoint == true && checkpoint == true) {
+		App->player->SetPos(0, 0, 510);
+	}
+	else {
+		App->player->SetPos(0, 0, 10);
+	}
 	App->player->vehicle->ResetVelocityAndRotation();
 }
 
