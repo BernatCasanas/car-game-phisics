@@ -60,7 +60,40 @@ void PhysVehicle3D::Render(int lives)
 	chassis.transform.M[14] += offset.getZ();
 
 
+	Cube back_left(info.back_left_size.x, info.back_left_size.y, info.back_left_size.z);
+	back_left.color = chassis.color;
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&back_left.transform);
+	btVector3 offset2(info.back_left_offset.x, info.back_left_offset.y, info.back_left_offset.z);
+	offset2 = offset2.rotate(q.getAxis(), q.getAngle());
+
+	back_left.transform.M[12] += offset2.getX();
+	back_left.transform.M[13] += offset2.getY();
+	back_left.transform.M[14] += offset2.getZ();
+
+	Cube back_right(info.back_right_size.x, info.back_right_size.y, info.back_right_size.z);
+	back_right.color = chassis.color;
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&back_right.transform);
+	btVector3 offset3(info.back_right_offset.x, info.back_right_offset.y, info.back_right_offset.z);
+	offset3 = offset3.rotate(q.getAxis(), q.getAngle());
+
+	back_right.transform.M[12] += offset3.getX();
+	back_right.transform.M[13] += offset3.getY();
+	back_right.transform.M[14] += offset3.getZ();
+
+	Cube chassis_up(info.chassis_up_size.x, info.chassis_up_size.y, info.chassis_up_size.z);
+	chassis_up.color = chassis.color;
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis_up.transform);
+	btVector3 offset4(info.chassis_up_offset.x, info.chassis_up_offset.y, info.chassis_up_offset.z);
+	offset4 = offset4.rotate(q.getAxis(), q.getAngle());
+
+	chassis_up.transform.M[12] += offset4.getX();
+	chassis_up.transform.M[13] += offset4.getY();
+	chassis_up.transform.M[14] += offset4.getZ();
+
 	chassis.Render();
+	back_left.Render();
+	back_right.Render();
+	chassis_up.Render();
 }
 
 // ----------------------------------------------------------------------------

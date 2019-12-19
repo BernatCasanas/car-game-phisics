@@ -293,6 +293,33 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 	comShape->addChildShape(trans, colShape);
 
+	btCollisionShape* colShape2 = new btBoxShape(btVector3(info.back_left_size.x * 0.5f, info.back_left_size.y * 0.5f, info.back_left_size.z * 0.5f));
+	shapes.add(colShape2);
+
+	btTransform trans2;
+	trans2.setIdentity();
+	trans2.setOrigin(btVector3(info.back_left_offset.x, info.back_left_offset.y, info.back_left_offset.z));
+
+	comShape->addChildShape(trans2, colShape2);
+
+	btCollisionShape* colShape3 = new btBoxShape(btVector3(info.back_right_size.x * 0.5f, info.back_right_size.y * 0.5f, info.back_right_size.z * 0.5f));
+	shapes.add(colShape3);
+
+	btTransform trans3;
+	trans3.setIdentity();
+	trans3.setOrigin(btVector3(info.back_right_offset.x, info.back_right_offset.y, info.back_right_offset.z));
+
+	comShape->addChildShape(trans3, colShape3);
+
+	btCollisionShape* colShape4 = new btBoxShape(btVector3(info.chassis_up_size.x * 0.5f, info.chassis_up_size.y * 0.5f, info.chassis_up_size.z * 0.5f));
+	shapes.add(colShape4);
+
+	btTransform trans4;
+	trans4.setIdentity();
+	trans4.setOrigin(btVector3(info.chassis_up_offset.x, info.chassis_up_offset.y, info.chassis_up_offset.z));
+
+	comShape->addChildShape(trans4, colShape4);
+
 	btTransform startTransform;
 	startTransform.setIdentity();
 
