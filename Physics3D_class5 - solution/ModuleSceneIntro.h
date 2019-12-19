@@ -42,4 +42,9 @@ public:
 	PhysMotor3D* right_wheel;
 
 	p2List<PhysBody3D*> sensors;
+
+	bool dead = false;
+	bool win = false;
+	bool hit = false;
+
 };

@@ -24,6 +24,9 @@ bool ModuleSceneIntro::Start()
 	int par = 1;
 	char* color;
 	App->audio->PlayMusic("Assets/Music/song.ogg");
+	App->audio->LoadFx("Assets/Sounds/die.wav");
+	App->audio->LoadFx("Assets/Sounds/win.wav");
+	App->audio->LoadFx("Assets/Sounds/hit.wav");
 
 	//Horizontal Limits
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
@@ -210,6 +213,22 @@ update_status ModuleSceneIntro::Update(float dt)
 		primitive->data->Render();
 	}
 
+	if (win) {
+		App->audio->PlayFx(2);
+		win = false;
+	}
+	if (hit) {
+		if (App->player->lives == 1) {
+			App->audio->PlayFx(1);
+			App->player->Restart(true);
+			App->player->lives = 3;
+		}
+		else {
+			App->audio->PlayFx(3);
+			App->player->lives--;
+		}
+		hit = false;
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -217,13 +236,14 @@ update_status ModuleSceneIntro::Update(float dt)
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1->type == PhysBody3D::Sensor_Type::OBSTACLE) {
-		App->player->Restart(true);
+		hit = true;
+		body1->SetPos(100, 100, 100);
 	}
 	else if (body1->type == PhysBody3D::Sensor_Type::WALL) {
 		//Nothing
 	}
 	else if (body1->type == PhysBody3D::Sensor_Type::WIN) {
-
+		win = true;
 	}
 	else if (body1->type == PhysBody3D::Sensor_Type::CHECKPOINT && body2->type != PhysBody3D::Sensor_Type::WALL) {
 		App->player->checkpoint = true;
