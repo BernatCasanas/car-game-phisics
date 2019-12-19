@@ -40,8 +40,7 @@ bool ModuleSceneIntro::Start()
 		if (z == 499.5) {
 			createRectangleWithConstraint({ 12, 0, z }, { 1, 5, 1 }, { 6, 0, z }, { 11, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
 			createRectangleWithConstraint({ -12, 0, z }, { 1, 5, 1 }, { -6, 0, z }, { 11, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
-			//color = "NoColor";
-			//createRectangle({ -5, 0, z }, { 10, 5, 1 }, color, PhysBody3D::Sensor_Type::CHECKPOINT);
+
 		}
 		else {
 			createRectangle({ 12, 0, z }, { 1, 10, 1 }, color, PhysBody3D::Sensor_Type::WALL);
@@ -59,7 +58,11 @@ bool ModuleSceneIntro::Start()
 		createRectangle({ x, 0, 0 }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
 		par++;
 	}
-	x = -7;
+	x = -11;
+	for (x; x < -7; x += 1.5) {
+		color = "Black";
+		createRectangle({ x, 0, z }, { 1, 10, 1 }, color, PhysBody3D::Sensor_Type::WIN);
+	}
 	for (x; x < 12; x += 1.5) {
 		if (par % 2 == 0) {
 			color = "Red";
