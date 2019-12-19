@@ -27,6 +27,7 @@ public:
 public:
 
 	p2List<Cube*> cube_list;
+	p2List<Primitive*> primitive_list;
 
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;

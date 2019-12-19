@@ -36,8 +36,8 @@ bool ModuleSceneIntro::Start()
 		if (z == 499.5) {
 			createRectangleWithConstraint({ 12, 0, z }, { 1, 5, 1 }, { 6, 0, z }, { 11, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
 			createRectangleWithConstraint({ -12, 0, z }, { 1, 5, 1 }, { -6, 0, z }, { 11, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL, PhysBody3D::Sensor_Type::CHECKPOINT);
-			color = "NoColor";
-			createRectangle({ -5, 0, z }, { 10, 5, 1 }, color, PhysBody3D::Sensor_Type::CHECKPOINT);
+			//color = "NoColor";
+			//createRectangle({ -5, 0, z }, { 10, 5, 1 }, color, PhysBody3D::Sensor_Type::CHECKPOINT);
 		}
 		else {
 			createRectangle({ 12, 0, z }, { 1, 5, 1 }, color, PhysBody3D::Sensor_Type::WALL);
@@ -177,6 +177,8 @@ void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size,vec3 po
 	pobject2->collision_listeners.add(this);
 	pobject2->SetAsSensor(false);
 	sensors.add(pobject2);
+	object2->body = pobject2;
+	primitive_list.add(object2);
 
 	vec3 v = { 0,1,0 };
 	if (pos.x > 0) {
@@ -198,6 +200,15 @@ update_status ModuleSceneIntro::Update(float dt)
 
 	for (cube; cube != nullptr;cube = cube->next) {
 		cube->data->Render();
+	}
+
+	p2List_item<Primitive*>* primitive = primitive_list.getFirst();
+
+	for (primitive; primitive != nullptr; primitive = primitive->next) {
+		// matrix;
+		primitive->data->body->GetTransform(&primitive->data->transform);
+		//primitive->data->transform = matrix;
+		primitive->data->Render();
 	}
 
 
