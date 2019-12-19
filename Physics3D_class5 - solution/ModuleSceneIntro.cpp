@@ -132,8 +132,10 @@ void ModuleSceneIntro::createRectangle(vec3 pos, vec3 size, char* color, PhysBod
 	cube_list.add(object);
 	PhysBody3D* pobject = App->physics->AddBody(*object, type, 0.0f);
 	pobject->collision_listeners.add(this);
-	pobject->SetAsSensor(false);
-	sensors.add(pobject);
+	if (type == PhysBody3D::Sensor_Type::CHECKPOINT || type == PhysBody3D::Sensor_Type::WIN) {
+		pobject->SetAsSensor(true);
+		sensors.add(pobject);
+	}
 }
 
 void ModuleSceneIntro::createRectangleWithConstraint(vec3 pos, vec3 size, char* color, PhysBody3D::Sensor_Type type, PhysBody3D::Sensor_Type type2) {
